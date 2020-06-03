@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@500&display=swap");
+
+body {
+  background: url("images/wallpaper1.png") fixed center;
+}
+
+.header {
+  background-color: #e65a5a;
+  color: white;
+  padding: 20px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #f7b2ad;
+  margin-bottom: 50px;
+}
+
+.header .title {
+  font-family: "Dancing Script", cursive;
+  margin-top: 10px;
+}
+
+.title h1 {
+  font-size: 50px;
+}
+
+.links a {
+  color: white;
+  font-weight: 300;
+  font-size: 22px;
+  margin-top: 10px;
+  border: 2px solid white;
+  border-radius: 15%;
+  padding: 7px;
+  float: right;
+}
+
+.links {
+  padding-right: 50px;
+  font-family: "Source Code Pro", monospace;
+}
+
+.links a:hover {
+  text-decoration: none;
+}
+
+.new {
+  margin-right: 45px;
+}
+
+.subtitles {
+  text-align: center;
+}
+.subtitles h5 {
+  font-size: 15px;
+  font-family: "Open Sans Condensed", sans-serif;
+}
+
+.App .card {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.card {
+  width: 300px;
+  height: 500px;
+  border: 1px solid black;
+  border-radius: 10%;
+  text-align: center;
+  padding: 25px;
+  margin-left: 100px;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.-front {
+  background-color: #f7b2ad;
+}
+
+.question {
+  font-size: 40px;
+}
+
+.card hr {
+  width: 75px;
+  border: 0px;
+  border-bottom: 2px solid black;
+}
+
+.hint {
+  position: absolute;
+  bottom: 10px;
+}
+
+.-back {
+  color: #e65a5a;
+  background-color: #e3dfde;
+}
+
+.answer {
+  font-size: 30px;
+}
+
+.description {
+  position: absolute;
+  bottom: 10px;
+}
+
+.buttons {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.buttons > button {
+  width: 100px;
+  font-size: 35px;
+  border-radius: 10%;
+  background-color: rgba(0, 0, 0, 0);
+  color: #e65a5a;
+  border: 3px solid #e65a5a;
+  outline: none;
+}
+
+.buttons > button:hover {
+  background-color: #e65a5a;
+  color: white;
+  outline: none;
+}
+
+.buttons > button:active {
+  outline: none;
+}
+
+button .left {
+  margin-right: 50px;
+}
+
+.right {
+  margin-left: 50px;
+}

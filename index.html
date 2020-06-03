@@ -1,0 +1,214 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flashcard-app</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <script src="data.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+
+  <body>
+    <div class="header col-12">
+      <div class="row">
+        <div class="title col-8">
+          <h1>The Flashcard App</h1>
+        </div>
+        <div class="links col-4">
+          <a class="about" href="about.html">About</a>
+          <a
+            class="new"
+            data-target="#exampleModal"
+            data-toggle="modal"
+            href="#"
+            >New set</a
+          >
+        </div>
+      </div>
+      <div class="subtitles">
+        <h5>-A simple flashcard app</h5>
+      </div>
+
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ...
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="app"></div>
+
+    <script type="text/babel">
+      const flashcards = flashcardData;
+      let index = 0;
+      let current = flashcards[index];
+
+      class App extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            data: [],
+            currents: {},
+          };
+        }
+
+        componentDidMount() {
+          this.setState({ data: flashcards, currents: flashcards[0] });
+        }
+
+        next = () => {
+          if (index < flashcards.length - 1) {
+            index++;
+            current = flashcards[index];
+            this.setState({ data: flashcards, currents: flashcards[0] });
+          }
+        };
+
+        previous() {
+          if (index > 0) {
+            index--;
+            current = flashcards[index];
+            this.setState({ data: flashcards, currents: flashcards[0] });
+          }
+        }
+
+        render() {
+          return (
+            <div className="App">
+              {/*this.state.data.map((card, index) => (
+                <Card key={index} front={card.front} />
+              ))*/}
+
+              <Card front={current.front} back={current.back} />
+
+              <div className="buttons">
+                <button className="left" onClick={() => this.previous()}>
+                  &#8592;
+                </button>
+                <button className="right" onClick={() => this.next()}>
+                  &#8594;
+                </button>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      class Card extends React.Component {
+        constructor() {
+          super();
+          this.state = {
+            flipped: false,
+          };
+        }
+
+        componentDidUpdate(prevProps, prevState) {
+          if (prevState.flipped) this.setState({ flipped: false });
+        }
+
+        flipCard() {
+          this.setState({ flipped: !this.state.flipped });
+        }
+
+        getSide = () => (!this.state.flipped ? "card -front" : "card -back");
+
+        render() {
+          return (
+            <div className={this.getSide()} onClick={() => this.flipCard()}>
+              {!this.state.flipped ? (
+                <div className="face">
+                  <div className="question">{this.props.front.question}</div>
+                  <div>
+                    <hr />
+                  </div>
+                  <div className="Hint">
+                    <span>HINT: </span>
+                    {this.props.front.hint}
+                  </div>
+                </div>
+              ) : (
+                <div className="face">
+                  <div className="answer">{this.props.back.answer}</div>
+                  <div>
+                    <hr />
+                  </div>
+                  <div className="description">
+                    {this.props.back.description}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+  </body>
+</html>
